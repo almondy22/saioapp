@@ -40,8 +40,7 @@ class Form extends React.Component {
                         }
                     })
                 }
-                {/* <Inp data={this.props.data[`value${this.id}`]} handler={this.handler} id="1"/> */}
-                {/* <Inp data={this.props.data[`value${this.id}`]} handler={this.handler} id="2"/> */}
+                
             </div>
         );
     }

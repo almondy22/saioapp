@@ -24,7 +24,6 @@ class LineGraph extends React.Component {
 
   componentDidMount() {
     const myChartRef = this.chartRef.current.getContext("2d");
-    console.log(this.props);
     this.myChart = new Chart(myChartRef, {
       type: "line",
       data: {
@@ -74,14 +73,18 @@ class LineGraph extends React.Component {
       //     // myChart.data.datasets[2].data.push(x2_3(x1).toFixed(2));
     // }
 
-    this.myChart.update();
-  }
-
-  componentDidUpdate() {
     for (let x1 = 0; x1 <= 10; x1 += 2) {
       this.myChart.data.labels.push("" + x1.toFixed(2));
       this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
     }
+
+    this.myChart.update();
+  }
+
+  componentDidUpdate() {
+    
+    console.log(this.myChart.data);
+    this.myChart.update();
     // this.x2(2, 1);
   }
 

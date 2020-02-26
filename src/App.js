@@ -18,6 +18,7 @@ class App extends React.Component {
       9: { k1: "", k2: "", value: "" },
       10: { k1: "", k2: "", value: "" },
     }
+    const isFilled = false;
     this.inpHandler = this.inpHandler.bind(this);
   }
   
@@ -35,6 +36,12 @@ inpHandler(data, id, name) {
       {[`${id}`]:{ k1 : this.state[`${id}`].k1, k2 : this.state[`${id}`].k2, value : data }}
       );
   }  
+
+  let k1 = this.state[`${id}`].k1;
+  let k2 = this.state[`${id}`].k2;
+  let value = this.state[`${id}`].value;
+  console.log(k1,k2,value);
+
 }
 
   render() {
