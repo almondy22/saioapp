@@ -33,7 +33,7 @@ class LineGraph extends React.Component {
         datasets: [
           {
             label: "Sales",
-            data: [86, 67, 91]
+            data: [86, 67, 91, 100]
           },
           {
             label: "X2(X1)(1)", //Метка
@@ -67,12 +67,12 @@ class LineGraph extends React.Component {
     });
 
     //  Заполняем данными
-    for (let x1 = 0; x1 <= 10; x1 += 2) {
+    // for (let x1 = 0; x1 <= 10; x1 += 2) {
       //     myChart.data.labels.push("" + x1.toFixed(2));
-      this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
+      // this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
       //     // myChart.data.datasets[1].data.push(x2_2(x1, 1).toFixed(2));
       //     // myChart.data.datasets[2].data.push(x2_3(x1).toFixed(2));
-    }
+    // }
 
     this.myChart.update();
   }
@@ -80,8 +80,9 @@ class LineGraph extends React.Component {
   componentDidUpdate() {
     for (let x1 = 0; x1 <= 10; x1 += 2) {
       this.myChart.data.labels.push("" + x1.toFixed(2));
+      this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
     }
-    this.x2(2, 1);
+    // this.x2(2, 1);
   }
 
   render() {
