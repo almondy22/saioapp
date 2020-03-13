@@ -6,18 +6,6 @@ class LineGraph extends React.Component {
   constructor(props) {
     super(props);
     const myChart = {};
-    this.x2 = this.x2.bind(this);
-  }
-
-  x2(x1, id) {
-    const data = this.props.data[`${id}`];
-    console.log(data);
-    const k1 = data.k1;
-    const k2 = data.k2;
-    const value = data.value;
-    let func = (value - k1 * x1) / k2;
-    console.log(func);
-    return func;
   }
 
   chartRef = React.createRef();
@@ -28,36 +16,29 @@ class LineGraph extends React.Component {
       type: "line",
       data: {
         //Bring in data
-        labels: [],
+        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         datasets: [
-          {
-            label: "Sales",
-            data: [86, 67, 91, 100]
-          },
-          {
-            label: "X2(X1)(1)", //Метка
-            data: [], //Данные
-            borderColor: "blue", //Цвет
-            borderWidth: 2, //Толщина линии
-            fill: true, //Не заполнять под графиком
-            radius: 1
-          }
+          // {
+          //   label: "Sales",
+          //   data: [86, 67, 91, 100]
+          // }          
         ]
       },
       options: {
         responsive: false, //Вписывать в размер canvas
+        animation: false,
         scales: {
           xAxes: [
             {
               display: true,
-              ticks: { min: 100 }
+              // ticks: { min: 100 }
               // max: 50
             }
           ],
           yAxes: [
             {
               display: true,
-              ticks: { max: 200 }
+              // ticks: { max: 200 }
               // max: 60
             }
           ]
@@ -65,27 +46,46 @@ class LineGraph extends React.Component {
       }
     });
 
-    //  Заполняем данными
-    // for (let x1 = 0; x1 <= 10; x1 += 2) {
-      //     myChart.data.labels.push("" + x1.toFixed(2));
-      // this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
-      //     // myChart.data.datasets[1].data.push(x2_2(x1, 1).toFixed(2));
-      //     // myChart.data.datasets[2].data.push(x2_3(x1).toFixed(2));
-    // }
+    Object.keys(this.props.data).forEach((key) => {
+      if (typeof(+(key)) == 'number') {
+        key = +key;
+        this.myChart.data.datasets.push(this.props.data[`${key}`].data);
+      }      
+    });
+    
+    // this.myChart.data.datasets[0] = (this.props.data["1"].data);
+    // this.myChart.data.labels = this.props.data["1"].labels;
 
-    for (let x1 = 0; x1 <= 10; x1 += 2) {
-      this.myChart.data.labels.push("" + x1.toFixed(2));
-      this.myChart.data.datasets[1].data.push(this.x2(x1, 1));
-    }
+    let lbls = [];
+    Object.keys(this.props.data).forEach((key) => {
+      lbls.push(Math.max(...this.props.data[`${key}`].labels));
+    });
+    let lblsMIN = Math.min(...lbls);
+    let lblsID = lbls.indexOf(lblsMIN) + 1;
+
+    this.myChart.data.labels = this.props.data[`${lblsID}`].labels;
 
     this.myChart.update();
+    console.log(this.myChart.data.datasets);
   }
 
   componentDidUpdate() {
-    
-    console.log(this.myChart.data);
+    // this.myChart.data.datasets[0] = (this.props.data["1"].data);
+
+    Object.keys(this.props.data).forEach((key) => {
+      if (typeof(+(key)) == 'number') {
+        key = +key;
+
+        if (this.myChart.data.datasets[`${key-1}`]) {
+          this.myChart.data.datasets[`${key-1}`].data = this.props.data[`${key}`].data.data;
+        } else {
+          this.myChart.data.datasets[`${key-1}`] = this.props.data[`${key}`].data;
+        }
+        
+      }      
+    });
+
     this.myChart.update();
-    // this.x2(2, 1);
   }
 
   render() {

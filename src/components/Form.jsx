@@ -4,9 +4,13 @@ import Inp from './Inp';
 class Form extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectValue: 1 }
+        this.state = { selectValue: 1 };
+
+        this.isClicked = false;
         this.handler = this.handler.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        
+        this.submitHandler = this.submitHandler.bind(this);
     }
     handler(value, id, name) {
         this.props.handler(value, id, name);
@@ -14,9 +18,14 @@ class Form extends React.Component {
     handleSelectChange(event) {
         this.setState({selectValue: event.target.value})
     }
+    submitHandler(event) {
+        event.preventDefault();
+        this.isClicked = true;
+        this.props.submitHandler(this.isClicked);
+    }
     render() {
         return(
-            <div className="expForm">
+            <form action="#" className="expForm">
                 <select value={this.state.selectValue} onChange={this.handleSelectChange} name="numberOfExp">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -33,15 +42,14 @@ class Form extends React.Component {
                 {
                     Object.keys(this.props.data).map((key) => {                        
                         if (+(key) <= +(this.state["selectValue"])) {
-                            // console.log(key);
                             return (
-                                <Inp handler={this.handler} id={key} key={key}/>
+                                <Inp handler={this.handler} id={+(key)} key={+(key)}/>
                             )
                         }
                     })
                 }
-                
-            </div>
+                <input type="submit" value="Отправить" onClick={this.submitHandler}/>
+            </form>
         );
     }
 }

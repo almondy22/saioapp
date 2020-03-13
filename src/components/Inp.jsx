@@ -27,11 +27,11 @@ class Inp extends React.Component {
     render() {
         return(
             <div className="expInput">
-                <input type="number" id={this.props.id} name="k1" value={this.props.data} onChange={this.k1Handler}/>
+                <input type="number" id={this.props.id} name="k1" value={this.props.data} onChange={this.k1Handler} required/>
                 <span> X1 +</span>
-                <input type="number" id={this.props.id} name="k2" value={this.props.data} onChange={this.k2Handler}/>
+                <input type="number" id={this.props.id} name="k2" value={this.props.data} onChange={this.k2Handler} required/>
                 <span> X2 =</span>
-                <input type="number" id={this.props.id} name="value" value={this.props.data} onChange={this.valueHandler}/>
+                <input type="number" id={this.props.id} name="value" value={this.props.data} onChange={this.valueHandler} required/>
             </div>
         )
     }
