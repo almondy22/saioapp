@@ -27,7 +27,10 @@ class App extends React.Component {
     this.selectHandler = this.selectHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
   }
-
+// test commit 1
+  // test commit 3
+  //test 4
+  // test 6
 stateUpdate = (data, id, name) => {
   if (name === "k1") {
     this.setState(
